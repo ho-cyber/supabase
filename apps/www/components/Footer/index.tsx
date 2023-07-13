@@ -145,7 +145,7 @@ const Footer = (props: Props) => {
         </div>
         <div className="border-scale-500 dark:border-scale-600 mt-32 flex justify-between border-t pt-8">
           <small className="small">&copy; Supabase Inc</small>
-          <DarkModeToggle />
+          <DarkModeToggle disabled={isLaunchWeekPage} />
         </div>
       </SectionContainer>
     </footer>

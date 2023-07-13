@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { PlayIcon, TruckIcon, XIcon } from '@heroicons/react/outline'
 import { Badge, Modal } from 'ui'
 
-import { Article, Product, WeekDayProps } from '../types'
+import { Article, Product, WeekDayProps } from '../../types'
 import _days from './../days.json'
 import ArticleButtonListItem from './ArticleButtonListItem'
 import ProductButtonListItem from './ProductButtonListItem'

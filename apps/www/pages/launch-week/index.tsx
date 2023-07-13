@@ -1,4 +1,4 @@
-// import { GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
@@ -18,9 +18,9 @@ import Image from 'next/image'
 
 const TicketContainer = dynamic(() => import('~/components/LaunchWeek/Ticket/TicketContainer'))
 // const LW7Releases = dynamic(() => import('~/components/LaunchWeek/Releases/LW7/LW7Releases'))
-// const LaunchWeekPrizeSection = dynamic(
-//   () => import('~/components/LaunchWeek/LaunchSection/LaunchWeekPrizeSection')
-// )
+const LaunchWeekPrizeSection = dynamic(
+  () => import('~/components/LaunchWeek/7/LaunchWeekPrizeSection')
+)
 // const TicketBrickWall = dynamic(
 //   () => import('~/components/LaunchWeek/LaunchSection/TicketBrickWall')
 // )
@@ -30,18 +30,18 @@ interface Props {
   users?: UserData[]
 }
 
-// const supabaseAdmin = createClient(
-//   process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'http://localhost:54321',
-//   process.env.SUPABASE_SERVICE_ROLE_SECRET ??
-//     process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_SECRET ??
-//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9idWxkYW5ycHRsb2t0eGNmZnZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njk3MjcwMTIsImV4cCI6MTk4NTMwMzAxMn0.SZLqryz_-stF8dgzeVXmzZWPOqdOrBwqJROlFES8v3I'
-// )
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'http://localhost:54321',
+  process.env.SUPABASE_SERVICE_ROLE_SECRET ??
+    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_SECRET ??
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9idWxkYW5ycHRsb2t0eGNmZnZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njk3MjcwMTIsImV4cCI6MTk4NTMwMzAxMn0.SZLqryz_-stF8dgzeVXmzZWPOqdOrBwqJROlFES8v3I'
+)
 
 export default function TicketHome({ users }: Props) {
   const { query } = useRouter()
   const [supabase, setSupabase] = useState<SupabaseClient | null>(null)
   const [session, setSession] = useState<Session | null>(null)
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, toggleTheme } = useTheme()
 
   const TITLE = 'Supabase LaunchWeek 8'
   const DESCRIPTION = 'Supabase Launch Week 8 | 7–11 August 2023'
@@ -83,9 +83,11 @@ export default function TicketHome({ users }: Props) {
   }, [supabase])
 
   useEffect(() => {
-    document.body.className = '!dark bg-[#020405]'
+    toggleTheme(true)
+    document.body.className = 'dark bg-[#020405]'
     return () => {
-      document.body.className = isDarkMode ? 'dark' : 'light'
+      document.body.className = ''
+      isDarkMode ? toggleTheme(true) : toggleTheme(false)
     }
   }, [])
 
@@ -135,11 +137,11 @@ export default function TicketHome({ users }: Props) {
             </div>
           </div>
 
-          {/* <div className="relative !w-full max-w-[100vw] !px-4 sm:max-w-xl md:max-w-4xl lg:max-w-7xl z-20 flex flex-col justify-around items-center !py-4 md:!py-8 gap-2 md:gap-4 !mx-auto">
-            <LW7Releases />
+          <div className="relative !w-full max-w-[100vw] !px-4 sm:max-w-xl md:max-w-4xl lg:max-w-7xl z-20 flex flex-col justify-around items-center !py-4 md:!py-8 gap-2 md:gap-4 !mx-auto">
+            {/* <LW7Releases /> */}
             <LaunchWeekPrizeSection className="pt-10" ticket={Ticket} />
           </div>
-          {users && <TicketBrickWall users={users} />} */}
+          {/* {users && <TicketBrickWall users={users} />} */}
         </div>
         {/* <CTABanner /> */}
       </DefaultLayout>
@@ -147,17 +149,17 @@ export default function TicketHome({ users }: Props) {
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-//   // fetch users for the TicketBrickWall
-//   const { data: users } = await supabaseAdmin!
-//     .from('lw7_tickets_golden')
-//     .select('*')
-//     .order('createdAt', { ascending: false })
-//     .limit(17)
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  // fetch users for the TicketBrickWall
+  const { data: users } = await supabaseAdmin!
+    .from('lw7_tickets_golden')
+    .select('*')
+    .order('createdAt', { ascending: false })
+    .limit(17)
 
-//   return {
-//     props: {
-//       users,
-//     },
-//   }
-// }
+  return {
+    props: {
+      users,
+    },
+  }
+}

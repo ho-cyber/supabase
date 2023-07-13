@@ -1,5 +1,5 @@
 import { NewspaperIcon } from '@heroicons/react/outline'
-import { Article } from '../types'
+import { Article } from '../../types'
 
 const ArticleButton = (props: Article) => {
   return (

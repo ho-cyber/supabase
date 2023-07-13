@@ -1,5 +1,5 @@
 import React from 'react'
-import LabelBadge from '../LabelBadge'
+import LabelBadge from './LabelBadge'
 import LaunchWeekPrizeCard from './LaunchWeekPrizeCard'
 import { motion } from 'framer-motion'
 

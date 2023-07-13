@@ -9,18 +9,18 @@ import { SITE_ORIGIN, SITE_URL } from '~/lib/constants'
 
 import DefaultLayout from '~/components/Layouts/Default'
 import SectionContainer from '~/components/Layouts/SectionContainer'
-import { LaunchWeekLogoHeader } from '~/components/LaunchWeek/LaunchSection/LaunchWeekLogoHeader'
+import { LaunchWeekLogoHeader } from '~/components/LaunchWeek/7/LaunchSection/LaunchWeekLogoHeader'
 import { UserData } from '~/components/LaunchWeek/Ticket/hooks/use-conf-data'
-import LW7BgGraphic from '~/components/LaunchWeek/LW7BgGraphic'
+import LW7BgGraphic from '~/components/LaunchWeek/7/LW7BgGraphic'
 import { useTheme } from 'common/Providers'
 
 const TicketContainer = dynamic(() => import('~/components/LaunchWeek/Ticket/TicketContainer'))
 const LW7Releases = dynamic(() => import('~/components/LaunchWeek/Releases/LW7/LW7Releases'))
 const LaunchWeekPrizeSection = dynamic(
-  () => import('~/components/LaunchWeek/LaunchSection/LaunchWeekPrizeSection')
+  () => import('~/components/LaunchWeek/7/LaunchWeekPrizeSection')
 )
 const TicketBrickWall = dynamic(
-  () => import('~/components/LaunchWeek/LaunchSection/TicketBrickWall')
+  () => import('~/components/LaunchWeek/7/LaunchSection/TicketBrickWall')
 )
 const CTABanner = dynamic(() => import('~/components/CTABanner'))
 
@@ -39,7 +39,7 @@ export default function TicketHome({ users }: Props) {
   const { query } = useRouter()
   const [supabase, setSupabase] = useState<SupabaseClient | null>(null)
   const [session, setSession] = useState<Session | null>(null)
-  const { isDarkMode } = useTheme()
+  const { isDarkMode, toggleTheme } = useTheme()
 
   const TITLE = 'Supabase LaunchWeek 7'
   const DESCRIPTION = 'Supabase Launch Week 7 | 10–14 April 2023'
@@ -81,9 +81,11 @@ export default function TicketHome({ users }: Props) {
   }, [supabase])
 
   useEffect(() => {
-    document.body.className = '!dark bg-[#1C1C1C]'
+    toggleTheme(true)
+    document.body.className = 'bg-[#1C1C1C]'
     return () => {
-      document.body.className = isDarkMode ? 'dark' : 'light'
+      document.body.className = ''
+      isDarkMode ? toggleTheme(true) : toggleTheme(false)
     }
   }, [])
 

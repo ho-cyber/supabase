@@ -1,4 +1,4 @@
-import { Announcement as AnnouncementType } from '../types'
+import { Announcement as AnnouncementType } from '../../types'
 
 export const Announcement = (props: AnnouncementType) => {
   const containerClasses = []
