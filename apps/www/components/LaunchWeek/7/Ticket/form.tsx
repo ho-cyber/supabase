@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react'
 import cn from 'classnames'
-import useConfData from '~/components/LaunchWeek/Ticket/hooks/use-conf-data'
+import useConfData from '~/components/LaunchWeek/7/Ticket/hooks/use-conf-data'
 import { useRouter } from 'next/router'
 import styleUtils from './utils.module.css'
 import styles from './form.module.css'
-import useEmailQueryParam from '~/components/LaunchWeek/Ticket/hooks/use-email-query-param'
+import useEmailQueryParam from '~/components/LaunchWeek/7/Ticket/hooks/use-email-query-param'
 import { IconLoader } from '~/../../packages/ui'
 
 type FormState = 'default' | 'loading' | 'error'

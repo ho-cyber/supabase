@@ -10,12 +10,12 @@ import { SITE_ORIGIN, SITE_URL } from '~/lib/constants'
 import DefaultLayout from '~/components/Layouts/Default'
 import SectionContainer from '~/components/Layouts/SectionContainer'
 import { LaunchWeekLogoHeader } from '~/components/LaunchWeek/7/LaunchSection/LaunchWeekLogoHeader'
-import { UserData } from '~/components/LaunchWeek/Ticket/hooks/use-conf-data'
+import { UserData } from '~/components/LaunchWeek/7/Ticket/hooks/use-conf-data'
 import LW7BgGraphic from '~/components/LaunchWeek/7/LW7BgGraphic'
 import { useTheme } from 'common/Providers'
 
-const TicketContainer = dynamic(() => import('~/components/LaunchWeek/Ticket/TicketContainer'))
-const LW7Releases = dynamic(() => import('~/components/LaunchWeek/Releases/LW7/LW7Releases'))
+const TicketContainer = dynamic(() => import('~/components/LaunchWeek/7/Ticket/TicketContainer'))
+const LW7Releases = dynamic(() => import('~/components/LaunchWeek/7/Releases'))
 const LaunchWeekPrizeSection = dynamic(
   () => import('~/components/LaunchWeek/7/LaunchWeekPrizeSection')
 )

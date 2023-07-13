@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { AdditiveBlending } from 'three'
-import { Trail } from '@react-three/drei'
+import { Html, Trail } from '@react-three/drei'
 import { range } from 'lodash'
 
 interface Props {
@@ -9,10 +9,20 @@ interface Props {
   animate?: boolean
   children: any
   config: any
+  user: any
 }
 
-const Particle = ({ index = 0, animate = true, children, config }: Props) => {
+const Particle = ({ index = 0, animate = true, user, children, config }: Props) => {
   const particle = useRef<any>(null)
+  const [isHovered, setIsHovered] = useState(false)
+
+  useEffect(() => {
+    if (isHovered) {
+      setTimeout(() => {
+        setIsHovered(false)
+      }, 1000)
+    }
+  }, [isHovered])
 
   // With a higher xRandomnessShape,
   // more particles will be condenced at the start of the curve (center)
@@ -72,13 +82,28 @@ const Particle = ({ index = 0, animate = true, children, config }: Props) => {
           attenuation={(width) => (width / 2) * width} // A function to define the width in each point along it.
         />
       )}
-      <mesh ref={particle}>{children}</mesh>
+      <mesh ref={particle} onPointerEnter={() => setIsHovered(true)}>
+        {children}
+
+        {user.username && (
+          <Html
+            as="div"
+            position={[1, 0, 0]}
+            wrapperClass={[
+              `invisible hidden text-[10px] text-[#9296AA] bg-black items-center justify-center rounded-full py-1 px-2 [&>div]:!relative`,
+              isHovered && '!visible !flex',
+            ].join(' ')}
+          >
+            @{user.username}
+          </Html>
+        )}
+      </mesh>
     </>
   )
 }
 
 let defaultConfig = {
-  particles: 1500,
+  particles: 200,
   particlesSize: 1.8,
   particlesSides: 5,
   particlesBlending: true,
@@ -283,10 +308,16 @@ export default function () {
     )
 
   return (
-    <Canvas linear dpr={[1, 2]} camera={{ fov: 75, position: [0, 0, 400] }}>
+    <Canvas
+      linear
+      dpr={[1, 2]}
+      camera={{ fov: 75, position: [0, 0, 400] }}
+      shadows
+      className="relative z-30"
+    >
       <ambientLight intensity={config.lightIntensity} />
-      {particles?.map((_, index) => (
-        <Particle key={`particle-${index}`} index={index} config={config}>
+      {particles?.map((user, index) => (
+        <Particle key={`particle-${index}`} user={user} index={index} config={config}>
           <Geometry />
           <Material />
         </Particle>

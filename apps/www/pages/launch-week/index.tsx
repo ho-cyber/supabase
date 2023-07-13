@@ -10,13 +10,14 @@ import { SITE_ORIGIN, SITE_URL } from '~/lib/constants'
 import DefaultLayout from '~/components/Layouts/Default'
 import SectionContainer from '~/components/Layouts/SectionContainer'
 // import { LaunchWeekLogoHeader } from '~/components/LaunchWeek/LaunchSection/LaunchWeekLogoHeader'
-import { UserData } from '~/components/LaunchWeek/Ticket/hooks/use-conf-data'
+import { UserData } from '~/components/LaunchWeek/7/Ticket/hooks/use-conf-data'
 // import LW7BgGraphic from '~/components/LaunchWeek/LW7BgGraphic'
 import { useTheme } from 'common/Providers'
 import AnimatedParticles from '~/components/LaunchWeek/8/AnimatedParticles'
 import Image from 'next/image'
+import { LaunchWeekLogoHeader } from '../../components/LaunchWeek/8/LaunchWeekLogoHeader'
 
-const TicketContainer = dynamic(() => import('~/components/LaunchWeek/Ticket/TicketContainer'))
+const TicketContainer = dynamic(() => import('~/components/LaunchWeek/7/Ticket/TicketContainer'))
 // const LW7Releases = dynamic(() => import('~/components/LaunchWeek/Releases/LW7/LW7Releases'))
 const LaunchWeekPrizeSection = dynamic(
   () => import('~/components/LaunchWeek/7/LaunchWeekPrizeSection')
@@ -124,13 +125,17 @@ export default function TicketHome({ users }: Props) {
           <div className="relative pt-16">
             <div className="relative z-10">
               <SectionContainer className="relative flex flex-col justify-around items-center min-h-[400px] lg:min-h-[600px] !py-4 md:!py-8 gap-2 md:gap-4 !px-2 !mx-auto">
-                <div className="absolute inset-0">
+                <div className="absolute bottom-0 z-10 w-full justify-center flex items-end">
+                  <LaunchWeekLogoHeader />
+                </div>
+                <div className="absolute inset-0 z-0">
                   <AnimatedParticles />
                   <Image
                     src="/images/launchweek/8/LW8-gradient.png"
                     layout="fill"
                     objectFit="cover"
                     objectPosition="top"
+                    priority
                   />
                 </div>
               </SectionContainer>

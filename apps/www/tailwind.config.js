@@ -17,6 +17,12 @@ module.exports = config({
           '0%': { backgroundColor: 'rgba(63, 207, 142, 0.1)' },
           '100%': { backgroundColor: 'transparent' },
         },
+        fadeIn: {
+          '0%, 100%': { opacity: '1' },
+        },
+        slideIn: {
+          '0%, 100%': { transform: 'translate3d(0,0,0)' },
+        },
       },
       animation: {
         'flash-code': 'flash-code 1s forwards',

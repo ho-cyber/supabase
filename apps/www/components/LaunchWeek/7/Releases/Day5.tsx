@@ -12,7 +12,7 @@ import {
 } from './components'
 
 import { WeekDayProps } from '~/components/LaunchWeek/7/lw7_days'
-import { opacityVariant4, scaleOpacityVariant2 } from './LW7Releases'
+import { opacityVariant4, scaleOpacityVariant2 } from '.'
 
 import styles from './day5.module.css'
 import Link from 'next/link'
