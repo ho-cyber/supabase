@@ -22,11 +22,11 @@ Let's start building the React app from scratch.
 
 ### Initialize a React app
 
-We can use [Vite](https://vitejs.dev/guide/) to initialize
+We can use create-react-app to initialize
 an app called `supabase-react`:
 
 ```bash
-npm create vite@latest supabase-react -- --template react
+npx create-react-app supabase-react
 cd supabase-react
 ```
 
@@ -36,9 +36,9 @@ Then let's install the only additional dependency: [supabase-js](https://github.
 npm install @supabase/supabase-js
 ```
 
-And finally we want to save the environment variables in a `.env.local` file.
+And finally we want to save the environment variables in a `.env` file.
 All we need are the API URL and the `anon` key that you copied [earlier](#get-the-api-keys).
-
+PLEASE ADD THIS FILE IN YOUR .gitignore file
 ```bash .env
 VITE_SUPABASE_URL=YOUR_SUPABASE_URL
 VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
